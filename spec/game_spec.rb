@@ -20,5 +20,23 @@ describe "Game" do
     it "should create a board" do
       expect(@game.board).to be_an_instance_of(Board)
     end
+
+    it "should designate a player to move first" do
+      @game.should satisfy { |game| game.active_player.class == User or game.active_player.class == Cpu }
+    end
+  end
+
+  describe '#choose_first_player' do
+    before do
+      @games = []
+      20.times do
+        @games << Game.new.active_player.class
+      end
+    end
+    
+    it "should randomly choose who goes first" do
+      expect(@games.include?(User)).to eq(true)
+      expect(@games.include?(Cpu)).to eq(true)
+    end
   end
 end
