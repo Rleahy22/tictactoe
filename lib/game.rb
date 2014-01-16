@@ -1,4 +1,6 @@
-Dir["/lib/*.rb"].each { |file| require file }
+require_relative "./user.rb"
+require_relative "./cpu.rb"
+require_relative "./board.rb"
 
 class Game
   attr_reader :user_player, :cpu_player, :board, :active_player

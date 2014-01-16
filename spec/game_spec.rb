@@ -33,10 +33,12 @@ describe "Game" do
         @games << Game.new.active_player.class
       end
     end
-    
+
     it "should randomly choose who goes first" do
       expect(@games.include?(User)).to eq(true)
       expect(@games.include?(Cpu)).to eq(true)
     end
   end
+
+  
 end
