@@ -11,4 +11,4 @@ if response.upcase == "Y"
 else
   puts "Then why are you here?"
 end
-@game.print_board
+@game.take_turn

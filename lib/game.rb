@@ -22,6 +22,7 @@ class Game
 
   def take_turn
     print_board
+    puts "\n"
     selection = nil
     if @active_player == @user_player
       until @board.is_square_available?(selection)
@@ -30,8 +31,10 @@ class Game
       end
         @user_player.place_mark(selection)
     else
-      # @cpu_player.place_mark
+      @cpu_player.place_mark(@cpu_player.best_move)
+      puts "CPU has made it's move"
     end
+    puts "\n"
     print_board
   end
 end
