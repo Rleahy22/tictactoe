@@ -7,7 +7,8 @@ until response.upcase == "Y" || response.upcase == "N"
   response = gets.chomp
 end
 if response.upcase == "Y"
-  Game.new
+  @game = Game.new
 else
   puts "Then why are you here?"
 end
+@game.print_board

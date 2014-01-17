@@ -15,4 +15,8 @@ class Game
   def choose_first_player
     rand(2) == 0 ? @cpu_player: @user_player
   end
+
+  def print_board
+    puts @board.print_friendly
+  end
 end

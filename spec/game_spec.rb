@@ -39,6 +39,4 @@ describe "Game" do
       expect(@games.include?(Cpu)).to eq(true)
     end
   end
-
-  
 end
