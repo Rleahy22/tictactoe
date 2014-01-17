@@ -7,4 +7,17 @@ class Cpu
     @mark = mark
     @board = board
   end
+
+  def check_for_immediate_threats
+    @board.winning_squares.each do |winning_combo|
+      winning_combo.map! { |square| square.value }
+      if winning_combo.count("X") == 2
+        unless winning_combo.include?("O")
+          winning_combo.delete("X")
+          return winning_combo.first
+        end
+      end
+    end
+  end
+  false
 end
