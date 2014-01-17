@@ -1,12 +1,20 @@
 require_relative "./square.rb"
 
 class Board
-  attr_reader :print_friendly, :squares
+  attr_reader :print_friendly, :squares, :winning_squares
 
   def initialize
     @squares = []
     9.times { @squares << Square.new(@squares.count + 1) }
     generate_print_friendly
+    @winning_squares = [[@squares[0], @squares[1], @squares[2]],
+                         [@squares[0], @squares[3], @squares[6]],
+                         [@squares[0], @squares[4], @squares[8]],
+                         [@squares[1], @squares[4], @squares[7]],
+                         [@squares[2], @squares[4], @squares[6]],
+                         [@squares[2], @squares[5], @squares[8]],
+                         [@squares[3], @squares[4], @squares[5]],
+                         [@squares[6], @squares[7], @squares[8]]]
   end
 
   def generate_print_friendly
