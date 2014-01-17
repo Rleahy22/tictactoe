@@ -18,6 +18,15 @@ class Cpu
         end
       end
     end
+    false
   end
-  false
+
+  def has_user_moved?
+    @board.squares.each do |square|
+      if square.value == "X"
+        return true
+      end
+    end
+    false
+  end
 end

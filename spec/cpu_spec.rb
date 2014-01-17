@@ -30,4 +30,19 @@ describe "Cpu" do
       expect(@cpu.check_for_immediate_threats).to eq(3)
     end
   end
+
+  describe '#has_user_moved?' do
+    describe "when there are no user marks" do
+      it "should return false" do
+        expect(@cpu.has_user_moved?).to eq(false)
+      end
+    end
+
+    describe "when there is a user mark" do
+      before { @game.user_player.place_mark(1) }
+      it "should return true" do
+        expect(@cpu.has_user_moved?).to eq(true)
+      end
+    end
+  end
 end
