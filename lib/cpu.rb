@@ -29,4 +29,8 @@ class Cpu
     end
     false
   end
+
+  def middle_available?
+    @board.squares[4].value == 5
+  end
 end

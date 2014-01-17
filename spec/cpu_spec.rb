@@ -45,4 +45,19 @@ describe "Cpu" do
       end
     end
   end
+
+  describe '#middle_available?' do
+    describe "when the middle square is available" do
+      it "should return true" do
+        expect(@cpu.middle_available?).to eq(true)
+      end
+    end
+
+    describe "when the middle square is occupied" do
+      before { @game.user_player.place_mark(5) }
+      it "should return false" do
+        expect(@cpu.middle_available?).to eq(false)
+      end
+    end
+  end
 end
