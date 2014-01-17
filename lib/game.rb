@@ -3,7 +3,8 @@ require_relative "./cpu.rb"
 require_relative "./board.rb"
 
 class Game
-  attr_reader :user_player, :cpu_player, :board, :active_player
+  attr_reader :user_player, :cpu_player, :board, 
+              :active_player, :winner
 
   def initialize
     @board = Board.new
@@ -36,5 +37,26 @@ class Game
     end
     puts "\n"
     print_board
+  end
+
+  def game_over?
+    @board.winning_squares.each do |winning_combo|
+      winning_combo.map! { |square| square.value }
+      if winning_combo.count("O") == 3
+        @winner = "CPU"
+        return true
+      end
+    end
+    @board.squares.each do |square|
+      if square.value != "X" && square.value != "O"
+        return false
+      end  
+    end
+    @winner = "No one"
+    return true
+  end
+
+  def display_winner
+
   end
 end
