@@ -1,7 +1,7 @@
 require_relative "./square.rb"
 
 class Board
-  attr_reader :print_friendly
+  attr_reader :print_friendly, :squares
 
   def initialize
     @squares = []
@@ -17,5 +17,14 @@ class Board
       @print_friendly << "\n-----------\n"
     end
     @print_friendly = print_friendly[0..-14]
+  end
+
+  def is_square_available?(num)
+    @squares.each do |square|
+      if square.value == num
+        return true
+      end
+    end
+    false
   end
 end
