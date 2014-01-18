@@ -1,7 +1,7 @@
 Dir["/lib/*.rb"].each { |file| require file }
 
 class Cpu
-  attr_reader :mark, :board
+  attr_reader :mark, :board, :winning_move, :response_to_threat
 
   def initialize(mark, board)
     @mark = mark
@@ -13,6 +13,9 @@ class Cpu
   end
 
   def best_move
+    if is_winning_move?
+      return @winning_move
+    end
     if is_immediate_threat?
       return @response_to_threat
     end
@@ -33,7 +36,7 @@ class Cpu
 
   def is_immediate_threat?
     @board.winning_squares.each do |winning_combo|
-      current_values = winning_combo.map { |square| square.value }
+      current_values = map_square_values(winning_combo)
       if current_values.count("X") == 2
         unless current_values.include?("O")
           set_response_to_threat(current_values)
@@ -44,19 +47,31 @@ class Cpu
     false
   end
 
+  def set_response_to_threat(squares)
+    squares.delete("X")
+    @response_to_threat = squares.first
+  end
+
   def is_winning_move?
     @board.winning_squares.each do |winning_combo|
       current_values = winning_combo.map { |square| square.value }
       if current_values.count("O") == 2
-        return true
+        unless current_values.include?("X")
+          set_winning_move(current_values)
+          return true
+        end
       end
     end
     false
   end
 
-  def set_response_to_threat(squares)
-    squares.delete("X")
-    @response_to_threat = squares.first
+  def set_winning_move(squares)
+    squares.delete("O")
+    @winning_move = squares.first
+  end
+
+  def map_square_values(squares)
+    squares.map { |square| square.value }
   end
 
   def has_user_moved?
