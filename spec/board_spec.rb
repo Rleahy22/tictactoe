@@ -29,4 +29,18 @@ describe "Board" do
       expect(@board.find_square_values(@board.squares)).to eq([1,2,3,4,5,6,7,8,9])
     end
   end
+
+  describe "squares" do
+    before { @squares = @board.find_square_values(@board.squares) }
+    it "should be an array of all the available squares" do
+      expect(@squares).to eq([1,2,3,4,5,6,7,8,9])
+    end
+  end
+
+  describe "corners" do
+    before { @corners = @board.find_square_values(@board.corners) }
+    it "should be an array of the corner squares" do
+      expect(@corners).to eq([1,3,7,9])
+    end
+  end
 end

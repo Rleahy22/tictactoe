@@ -98,6 +98,21 @@ describe "Cpu" do
     end
   end
 
+  describe '#has_cpu_moved?' do
+    describe "when there are no cpu marks" do
+      it "should return false" do
+        expect(@cpu.has_cpu_moved?).to eq(false)
+      end
+    end
+
+    describe "when there is a cpu mark" do
+      before { @cpu.place_mark(1) }
+      it "should return true" do
+        expect(@cpu.has_cpu_moved?).to eq(true)
+      end
+    end
+  end
+
   describe '#is_middle_available?' do
     describe "when the middle square is available" do
       it "should return true" do
@@ -110,6 +125,36 @@ describe "Cpu" do
       it "should return false" do
         expect(@cpu.is_middle_available?).to eq(false)
       end
+    end
+  end
+
+  describe '#are_corners_available?' do
+    describe "when a corner is available" do
+      it "should return true" do
+        expect(@cpu.are_corners_available?).to eq(true)
+      end
+    end
+
+    describe "when all corners are occupied" do
+      before do
+        @user.place_mark(1)
+        @user.place_mark(3)
+        @user.place_mark(7)
+        @user.place_mark(9)
+      end
+      it "should return false" do
+        expect(@cpu.are_corners_available?).to eq(false)
+      end
+    end
+  end
+
+  describe 'find_undefended_corner' do
+    before do
+      @cpu.place_mark(1)
+      @user.place_mark(2)
+    end
+    it "should return the corner with no X's in the winning combo it belongs to" do
+      expect([7,9].include?(@cpu.find_undefended_corner)).to eq(true)
     end
   end
 
