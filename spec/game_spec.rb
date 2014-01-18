@@ -40,6 +40,46 @@ describe "Game" do
     end
   end
 
+  describe '#switch_active_player' do
+    describe "when cpu_player is active_player" do
+      before do
+        @game.active_player = @game.cpu_player
+        @game.switch_active_player
+      end
+      it 'should set active_player equal to user_player' do
+        expect(@game.active_player).to eq(@game.user_player)
+      end
+    end
+
+    describe "when user_player is active_player" do
+      before do
+        @game.active_player = @game.user_player
+        @game.switch_active_player
+      end
+      it "should set active player equal to cpu_player" do
+        expect(@game.active_player).to eq(@game.cpu_player)
+      end
+    end
+  end
+
+  describe '#take_turn' do
+    describe "when it is the cpu's turn" do
+      before do
+        @game.active_player = @game.cpu_player
+        @previous_values = @game.board.squares.map { |square| square.value }
+        @game.take_turn
+        @current_values = @game.board.squares.map { |square| square.value }
+      end
+      it "should have the cpu place a mark on the board" do
+        expect(@current_values.count("O")).to be > @previous_values.count("O")
+      end
+
+      it "should change the active_player to user_player" do
+        expect(@game.active_player).to eq(@game.user_player)
+      end
+    end
+  end
+
   describe '#game_over?' do
     describe "when there is no winner" do
       it "should return false" do
