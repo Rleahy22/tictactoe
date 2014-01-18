@@ -28,7 +28,7 @@ class Cpu
   end
 
   def find_remaining_squares
-    remaining_squares = @board.squares.map { |square| square.value }
+    remaining_squares = @board.find_square_values(@board.squares)
     remaining_squares.delete("X")
     remaining_squares.delete("O")
     remaining_squares
@@ -36,7 +36,7 @@ class Cpu
 
   def is_immediate_threat?
     @board.winning_squares.each do |winning_combo|
-      current_values = map_square_values(winning_combo)
+      current_values = @board.find_square_values(winning_combo)
       if current_values.count("X") == 2
         unless current_values.include?("O")
           set_response_to_threat(current_values)
@@ -54,7 +54,7 @@ class Cpu
 
   def is_winning_move?
     @board.winning_squares.each do |winning_combo|
-      current_values = winning_combo.map { |square| square.value }
+      current_values = @board.find_square_values(winning_combo)
       if current_values.count("O") == 2
         unless current_values.include?("X")
           set_winning_move(current_values)
@@ -68,10 +68,6 @@ class Cpu
   def set_winning_move(squares)
     squares.delete("O")
     @winning_move = squares.first
-  end
-
-  def map_square_values(squares)
-    squares.map { |square| square.value }
   end
 
   def has_user_moved?
