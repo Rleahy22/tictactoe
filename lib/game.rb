@@ -56,6 +56,13 @@ class Game
   end
 
   def game_over?
+    if is_cpu_winner?
+      return true
+    end
+    is_a_draw?
+  end
+
+  def is_cpu_winner?
     @board.winning_squares.each do |winning_combo|
       current_values = @board.find_square_values(winning_combo)
       if current_values.count("O") == 3
@@ -63,7 +70,7 @@ class Game
         return true
       end
     end
-    is_a_draw?
+    false
   end
 
   def is_a_draw?
