@@ -63,6 +63,10 @@ class Game
         return true
       end
     end
+    is_a_draw?
+  end
+
+  def is_a_draw?
     @board.squares.each do |square|
       if square.value != "X" && square.value != "O"
         return false

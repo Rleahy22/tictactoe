@@ -118,6 +118,46 @@ describe "Game" do
     end
   end
 
+  describe '#is_a_draw' do
+    describe "when the game is a draw" do
+      before do
+        @game.cpu_player.place_mark(1)
+        @game.user_player.place_mark(9)
+        @game.cpu_player.place_mark(5)
+        @game.user_player.place_mark(3)
+        @game.cpu_player.place_mark(6)
+        @game.user_player.place_mark(4)
+        @game.cpu_player.place_mark(8)
+        @game.user_player.place_mark(2)
+        @game.cpu_player.place_mark(7)
+      end
+      it "should return true" do
+        expect(@game.is_a_draw?).to eq(true)
+      end
+    end
+
+    describe "when the game is not a draw" do
+      describe "when the game is not over" do
+        it "should return false" do
+          expect(@game.is_a_draw?).to eq(false)
+        end
+      end
+
+      describe "when there is a winner" do
+        before do
+          @game.cpu_player.place_mark(1)
+          @game.user_player.place_mark(6)
+          @game.cpu_player.place_mark(5)
+          @game.user_player.place_mark(8)
+          @game.cpu_player.place_mark(9)
+        end
+        it "should return false" do
+          expect(@game.is_a_draw?).to eq(false)
+        end
+      end
+    end
+  end
+
   describe "winner" do
     describe "when it is a draw" do
       before do
