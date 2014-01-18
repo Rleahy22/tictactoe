@@ -32,7 +32,6 @@ class Game
   end
 
   def take_turn
-    puts "\n"
     if @active_player == @user_player
       @user_player.place_mark(receive_user_input)
     else
