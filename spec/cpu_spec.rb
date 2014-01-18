@@ -154,6 +154,12 @@ describe "Cpu" do
           end
         end
       end
+
+      describe "when the cpu has the first move" do
+        it "should return a corner square" do
+          expect(@cpu.best_move).to eq(1)
+        end
+      end
     end
 
     describe "when there is an immediate opportunity to win" do

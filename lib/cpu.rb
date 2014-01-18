@@ -23,6 +23,8 @@ class Cpu
       if is_middle_available?
         return 5
       end
+    else
+      return 1
     end
     find_remaining_squares.sample
   end
