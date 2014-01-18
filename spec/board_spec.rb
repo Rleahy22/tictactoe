@@ -23,4 +23,10 @@ describe "Board" do
       expect(@board.print_friendly).to eq(" 1 | 2 | 3 \n-----------\n 4 | 5 | 6 \n-----------\n 7 | 8 | 9 ")
     end
   end
+
+  describe '#find_square_values' do
+    it "should return the values of squares in argument" do
+      expect(@board.find_square_values(@board.squares)).to eq([1,2,3,4,5,6,7,8,9])
+    end
+  end
 end

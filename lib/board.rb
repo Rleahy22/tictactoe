@@ -35,4 +35,8 @@ class Board
     end
     false
   end
+
+  def find_square_values(squares)
+    squares.map { |square| square.value}
+  end
 end
