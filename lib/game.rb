@@ -57,7 +57,7 @@ class Game
 
   def game_over?
     @board.winning_squares.each do |winning_combo|
-      current_values = winning_combo.map { |square| square.value }
+      current_values = @board.find_square_values(winning_combo)
       if current_values.count("O") == 3
         @winner = "CPU"
         return true
