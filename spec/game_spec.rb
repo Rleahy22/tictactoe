@@ -4,6 +4,26 @@ describe "Game" do
   
   before { @game = Game.new }
 
+  let(:cpu_win) do
+    @game.cpu_player.place_mark(1)
+    @game.user_player.place_mark(6)
+    @game.cpu_player.place_mark(5)
+    @game.user_player.place_mark(8)
+    @game.cpu_player.place_mark(9)
+  end
+
+  let(:play_draw) do
+    @game.cpu_player.place_mark(1)
+    @game.user_player.place_mark(9)
+    @game.cpu_player.place_mark(5)
+    @game.user_player.place_mark(3)
+    @game.cpu_player.place_mark(6)
+    @game.user_player.place_mark(4)
+    @game.cpu_player.place_mark(8)
+    @game.user_player.place_mark(2)
+    @game.cpu_player.place_mark(7)
+  end
+
   describe '#initialize' do
     it "should create a new instance of Game" do
       expect(@game).to be_an_instance_of(Game)
@@ -88,30 +108,14 @@ describe "Game" do
     end
 
     describe "when there is a winner" do
-      before do
-        @game.cpu_player.place_mark(1)
-        @game.user_player.place_mark(6)
-        @game.cpu_player.place_mark(5)
-        @game.user_player.place_mark(8)
-        @game.cpu_player.place_mark(9)
-      end
+      before { cpu_win }
       it "should return true" do
         expect(@game.game_over?).to eq(true)
       end
     end
 
     describe "when there is a cat's game" do
-      before do
-        @game.cpu_player.place_mark(1)
-        @game.user_player.place_mark(9)
-        @game.cpu_player.place_mark(5)
-        @game.user_player.place_mark(3)
-        @game.cpu_player.place_mark(6)
-        @game.user_player.place_mark(4)
-        @game.cpu_player.place_mark(8)
-        @game.user_player.place_mark(2)
-        @game.cpu_player.place_mark(7)
-      end
+      before { play_draw }
       it "should return true" do
         expect(@game.game_over?).to eq(true)
       end
@@ -120,17 +124,7 @@ describe "Game" do
 
   describe '#is_a_draw' do
     describe "when the game is a draw" do
-      before do
-        @game.cpu_player.place_mark(1)
-        @game.user_player.place_mark(9)
-        @game.cpu_player.place_mark(5)
-        @game.user_player.place_mark(3)
-        @game.cpu_player.place_mark(6)
-        @game.user_player.place_mark(4)
-        @game.cpu_player.place_mark(8)
-        @game.user_player.place_mark(2)
-        @game.cpu_player.place_mark(7)
-      end
+      before { play_draw }
       it "should return true" do
         expect(@game.is_a_draw?).to eq(true)
       end
@@ -144,13 +138,7 @@ describe "Game" do
       end
 
       describe "when there is a winner" do
-        before do
-          @game.cpu_player.place_mark(1)
-          @game.user_player.place_mark(6)
-          @game.cpu_player.place_mark(5)
-          @game.user_player.place_mark(8)
-          @game.cpu_player.place_mark(9)
-        end
+        before { cpu_win }
         it "should return false" do
           expect(@game.is_a_draw?).to eq(false)
         end
@@ -160,13 +148,7 @@ describe "Game" do
 
   describe '#is_cpu_winner' do
     describe "when the cpu is the winner" do
-      before do
-        @game.cpu_player.place_mark(1)
-        @game.user_player.place_mark(6)
-        @game.cpu_player.place_mark(5)
-        @game.user_player.place_mark(8)
-        @game.cpu_player.place_mark(9)
-      end
+      before { cpu_win }
       it "should return true" do
         expect(@game.is_cpu_winner?).to eq(true)
       end
@@ -180,17 +162,7 @@ describe "Game" do
       end
 
       describe "when the game is a draw" do
-        before do
-          @game.cpu_player.place_mark(1)
-          @game.user_player.place_mark(9)
-          @game.cpu_player.place_mark(5)
-          @game.user_player.place_mark(3)
-          @game.cpu_player.place_mark(6)
-          @game.user_player.place_mark(4)
-          @game.cpu_player.place_mark(8)
-          @game.user_player.place_mark(2)
-          @game.cpu_player.place_mark(7)
-        end
+        before { play_draw }
         it "should return false" do
           expect(@game.is_cpu_winner?).to eq(false)
         end
@@ -201,15 +173,7 @@ describe "Game" do
   describe "winner" do
     describe "when it is a draw" do
       before do
-        @game.cpu_player.place_mark(1)
-        @game.user_player.place_mark(9)
-        @game.cpu_player.place_mark(5)
-        @game.user_player.place_mark(3)
-        @game.cpu_player.place_mark(6)
-        @game.user_player.place_mark(4)
-        @game.cpu_player.place_mark(8)
-        @game.user_player.place_mark(2)
-        @game.cpu_player.place_mark(7)
+        play_draw
         @game.game_over?
       end
       it "should declare no one is a winner" do
@@ -219,11 +183,7 @@ describe "Game" do
 
     describe "when the computer wins" do
       before do
-        @game.cpu_player.place_mark(1)
-        @game.user_player.place_mark(6)
-        @game.cpu_player.place_mark(5)
-        @game.user_player.place_mark(8)
-        @game.cpu_player.place_mark(9)
+        cpu_win
         @game.game_over?
       end
       it "should declare the cpu the winner" do
