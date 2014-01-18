@@ -33,12 +33,22 @@ class Cpu
 
   def is_immediate_threat?
     @board.winning_squares.each do |winning_combo|
-      winning_combo.map! { |square| square.value }
-      if winning_combo.count("X") == 2
-        unless winning_combo.include?("O")
-          set_response_to_threat(winning_combo)
+      current_values = winning_combo.map { |square| square.value }
+      if current_values.count("X") == 2
+        unless current_values.include?("O")
+          set_response_to_threat(current_values)
           return true
         end
+      end
+    end
+    false
+  end
+
+  def is_winning_move?
+    @board.winning_squares.each do |winning_combo|
+      current_values = winning_combo.map { |square| square.value }
+      if current_values.count("O") == 2
+        return true
       end
     end
     false

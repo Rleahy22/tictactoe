@@ -39,6 +39,24 @@ describe "Cpu" do
     end
   end
 
+  describe '#is_winning_move?' do
+    describe "when there is no winning move" do
+      it "should return false" do
+        expect(@cpu.is_winning_move?).to eq(false)
+      end
+    end
+
+    describe "when there is a winning move" do
+      before do
+        @game.cpu_player.place_mark(1)
+        @game.cpu_player.place_mark(2)
+      end
+      it "should return true" do
+        expect(@cpu.is_winning_move?).to eq(true)
+      end
+    end
+  end
+
   describe '#has_user_moved?' do
     describe "when there are no user marks" do
       it "should return false" do
