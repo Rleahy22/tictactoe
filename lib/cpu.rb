@@ -20,13 +20,13 @@ class Cpu
       return @response_to_threat
     end
     if has_user_moved?
-      if has_cpu_moved?
-        if are_corners_available?
-          return @corner_move
+      if !has_cpu_moved?
+        if is_middle_available?
+          return 5
         end
       end
-      if is_middle_available?
-        return 5
+      if are_corners_available?
+        return @corner_move
       end
     else
       return 1
@@ -99,22 +99,27 @@ class Cpu
     corners = @board.find_square_values(@board.corners)
     corners.each do |corner|
       if corner != "X" && corner != "O"
-        @corner_move = find_undefended_corner
+        @corner_move = find_best_corner(corners)
         return true
       end
     end
     false
   end
 
-  def find_undefended_corner
+  def find_best_corner(corners)
     @board.winning_squares.each do |winning_combo|
       current_values = @board.find_square_values(winning_combo)
       unless current_values.include?("X")
         current_values.each do |square|
-          if square != "O" && @board.find_square_values(@board.corners).include?(square)
+          if square != "O" && corners.include?(square)
             return square
           end
         end
+      end
+    end
+    corners.each do |corner|
+      if corner != "X" && corner != "O"
+        return corner
       end
     end
   end

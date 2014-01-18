@@ -148,13 +148,14 @@ describe "Cpu" do
     end
   end
 
-  describe 'find_undefended_corner' do
+  describe 'find_best_corner' do
     before do
       @cpu.place_mark(1)
       @user.place_mark(2)
+      @corners = @board.find_square_values(@board.corners)
     end
     it "should return the corner with no X's in the winning combo it belongs to" do
-      expect([7,9].include?(@cpu.find_undefended_corner)).to eq(true)
+      expect([7,9].include?(@cpu.find_best_corner(@corners))).to eq(true)
     end
   end
 
