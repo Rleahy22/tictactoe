@@ -8,7 +8,7 @@ until response.upcase == "Y" || response.upcase == "N"
 end
 if response.upcase == "Y"
   @game = Game.new
+  @game.play
 else
   puts "Then why are you here?"
 end
-@game.play
