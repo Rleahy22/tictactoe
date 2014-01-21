@@ -130,7 +130,7 @@ describe "Game" do
     end
   end
 
-  describe '#is_a_draw' do
+  describe '#is_a_draw?' do
     describe "when the game is a draw" do
       before { play_draw }
       it "should return true" do
@@ -231,7 +231,7 @@ describe "Game" do
         user_win
         @game.game_over?
       end
-      it "should declare the cpu the winner" do
+      it "should declare the user the winner" do
         expect(@game.winner).to eq("User")
       end
     end
