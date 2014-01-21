@@ -12,6 +12,14 @@ describe "Game" do
     @game.cpu_player.place_mark(9)
   end
 
+  let(:user_win) do
+    @game.user_player.place_mark(1)
+    @game.cpu_player.place_mark(2)
+    @game.user_player.place_mark(7)
+    @game.cpu_player.place_mark(9)
+    @game.user_player.place_mark(4)
+  end
+
   let(:play_draw) do
     @game.cpu_player.place_mark(1)
     @game.user_player.place_mark(9)
@@ -146,25 +154,52 @@ describe "Game" do
     end
   end
 
-  describe '#is_cpu_winner' do
-    describe "when the cpu is the winner" do
-      before { cpu_win }
-      it "should return true" do
-        expect(@game.is_cpu_winner?).to eq(true)
+  describe '#is_player_winner?' do
+    describe "cpu" do
+      describe "when the cpu is the winner" do
+        before { cpu_win }
+        it "should return true" do
+          expect(@game.is_player_winner?("CPU", "O")).to eq(true)
+        end
+      end
+
+      describe "when the cpu is not the winner" do
+        before { user_win }
+        it "should return false" do
+          expect(@game.is_player_winner?("CPU", "O")).to eq(false)
+        end
       end
     end
 
-    describe "when the cpu is not the winner" do
+    describe "user do" do
+      describe "when the user is the winner" do
+        before { user_win }
+        it "should return true" do
+          expect(@game.is_player_winner?("User", "X")).to eq(true)
+        end
+      end
+
+      describe "when the user is not the winner" do
+        before { cpu_win }
+        it "should return false" do
+          expect(@game.is_player_winner?("User", "X")).to eq(false)
+        end
+      end
+    end
+
+    describe "when there is no winner" do
       describe "when the game is not over" do
         it "should return false" do
-          expect(@game.is_cpu_winner?).to eq(false)
+          expect(@game.is_player_winner?("CPU", "O")).to eq(false)
+          expect(@game.is_player_winner?("User", "X")).to eq(false)
         end
       end
 
       describe "when the game is a draw" do
         before { play_draw }
         it "should return false" do
-          expect(@game.is_cpu_winner?).to eq(false)
+          expect(@game.is_player_winner?("CPU", "O")).to eq(false)
+          expect(@game.is_player_winner?("User", "X")).to eq(false)
         end
       end
     end
@@ -188,6 +223,16 @@ describe "Game" do
       end
       it "should declare the cpu the winner" do
         expect(@game.winner).to eq("CPU")
+      end
+    end
+
+    describe "when the user wins" do
+      before do
+        user_win
+        @game.game_over?
+      end
+      it "should declare the cpu the winner" do
+        expect(@game.winner).to eq("User")
       end
     end
   end

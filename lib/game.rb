@@ -56,22 +56,36 @@ class Game
   end
 
   def game_over?
-    if is_cpu_winner?
+    if is_player_winner?("CPU", "O")
+      return true
+    end
+    if is_player_winner?("User", "X")
       return true
     end
     is_a_draw?
   end
 
-  def is_cpu_winner?
+  def is_player_winner?(player, mark)
     @board.winning_squares.each do |winning_combo|
       current_values = @board.find_square_values(winning_combo)
-      if current_values.count("O") == 3
-        @winner = "CPU"
+      if current_values.count(mark) == 3
+        @winner = player
         return true
       end
     end
     false
   end
+
+  # def is_user_winner?
+  #   @board.winning_squares.each do |winning_combo|
+  #     current_values = @board.find_square_values(winning_combo)
+  #     if current_values.count("X") == 3
+  #       @winner = "CPU"
+  #       return true
+  #     end
+  #   end
+  #   false
+  # end
 
   def is_a_draw?
     @board.squares.each do |square|
