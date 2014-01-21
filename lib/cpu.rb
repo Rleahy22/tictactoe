@@ -115,6 +115,10 @@ class Cpu
         end
       end
     end
+    find_open_corner(corners)
+  end
+
+  def find_open_corner(corners)
     corners.each do |corner|
       if corner != "X" && corner != "O"
         return corner

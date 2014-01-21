@@ -171,6 +171,23 @@ describe "Cpu" do
     end
   end
 
+  describe 'find_open_corner' do
+    before do
+      @cpu.place_mark(1)
+      @user.place_mark(5)
+      @cpu.place_mark(3)
+      @user.place_mark(2)
+      @cpu.place_mark(8)
+      @user.place_mark(4)
+      @cpu.place_mark(6)
+      @user.place_mark(9)
+      @corners = @board.find_square_values(@board.corners)
+    end
+    it "should return an unoccupied corner square" do
+      expect(@cpu.find_open_corner(@corners)).to eq(7)
+    end
+  end
+
   describe '#best_move' do
     describe "when there isn't an immediate opportunity to win" do
       describe "when the player has made the first move" do
