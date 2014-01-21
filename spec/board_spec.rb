@@ -95,4 +95,18 @@ describe "Board" do
       expect(@corners).to eq([1,3,7,9])
     end
   end
+
+  describe "edges" do
+    before { @edges = @board.find_square_values(@board.edges) }
+    it "should be an array of the edge squares" do
+      expect(@edges).to eq([2,4,6,8])
+    end
+  end
+
+  describe "opposite_corners" do
+    before { @opposite_corners = @board.opposite_corners.map { |pair| @board.find_square_values(pair)} }
+    it "should return a mulitdimensional array of the opposite corner pairs" do
+      expect(@opposite_corners).to eq([[1,9], [3,7]])
+    end
+  end
 end

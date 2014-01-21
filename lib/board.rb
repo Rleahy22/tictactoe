@@ -1,7 +1,8 @@
 require_relative "./square.rb"
 
 class Board
-  attr_reader :print_friendly, :squares, :winning_squares, :corners
+  attr_reader :print_friendly, :squares, :winning_squares, :corners,
+              :edges, :opposite_corners
 
   def initialize
     @squares = []
@@ -16,6 +17,8 @@ class Board
                          [@squares[3], @squares[4], @squares[5]],
                          [@squares[6], @squares[7], @squares[8]]]
     @corners = [0, 2, 6, 8].map { |index| @squares[index] }
+    @edges = [1, 3, 5, 7].map { |index| @squares[index] }
+    @opposite_corners = [[@squares[0], @squares[8]], [@squares[2], @squares[6]]]
   end
 
   def generate_print_friendly

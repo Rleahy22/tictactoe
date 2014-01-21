@@ -25,6 +25,9 @@ class Cpu
           return 5
         end
       end
+      if user_taken_opposite_corner?
+        return @edge_move
+      end
       if are_corners_available?
         return @corner_move
       end
@@ -91,6 +94,24 @@ class Cpu
       end
     end
     false
+  end
+
+  def user_taken_opposite_corner?
+    opposite_corners = @board.opposite_corners.map { |pair| @board.find_square_values(pair) }
+    if (opposite_corners[0].count("X") == 2) || (opposite_corners[1].count("X") == 2)
+      @edge_move = set_edge_move
+      return true
+    end
+    false
+  end
+
+  def set_edge_move
+    edges = @board.find_square_values(@board.edges)
+    edges.each do |edge|
+      if edge != "X" && edge != "O"
+        return edge
+      end
+    end
   end
 
   def are_corners_available?

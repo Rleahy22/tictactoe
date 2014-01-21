@@ -60,6 +60,17 @@ describe "Cpu" do
           end
         end
 
+        describe "when the player has taken opposite corners" do
+          before do
+            @user.place_mark(1)
+            @cpu.place_mark(5)
+            @user.place_mark(9)
+          end
+          it "should return an edge square" do
+            expect([2,4,6,8]).to include(@cpu.best_move)
+          end
+        end
+
         describe "when there is an immediate threat" do
           before do
             @user.place_mark(1)
@@ -206,6 +217,31 @@ describe "Cpu" do
       it "should return false" do
         expect(@cpu.is_middle_available?).to eq(false)
       end
+    end
+  end
+
+  describe '#user_taken_opposite_corner?' do
+    describe "when the user has taken opposite corners" do
+      before do
+        @user.place_mark(1)
+        @cpu.place_mark(5)
+        @user.place_mark(9)
+      end
+      it "should return true" do
+        expect(@cpu.user_taken_opposite_corner?).to eq(true)
+      end
+    end
+
+    describe "when the user has not taken opposite corners" do
+      it "should return false" do
+        expect(@cpu.user_taken_opposite_corner?).to eq(false)
+      end
+    end
+  end
+
+  describe '#set_edge_move' do
+    it "should return an edge square" do
+      expect([2,4,6,8]).to include(@cpu.set_edge_move)
     end
   end
 
