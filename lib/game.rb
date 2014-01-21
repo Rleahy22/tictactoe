@@ -14,7 +14,7 @@ class Game
   end
 
   def choose_first_player
-    rand(2) == 0 ? @cpu_player: @user_player
+    rand(2) == 0 ? @cpu_player : @user_player
   end
 
   def play
