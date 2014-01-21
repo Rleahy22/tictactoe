@@ -76,17 +76,6 @@ class Game
     false
   end
 
-  # def is_user_winner?
-  #   @board.winning_squares.each do |winning_combo|
-  #     current_values = @board.find_square_values(winning_combo)
-  #     if current_values.count("X") == 3
-  #       @winner = "CPU"
-  #       return true
-  #     end
-  #   end
-  #   false
-  # end
-
   def is_a_draw?
     @board.squares.each do |square|
       if square.value != "X" && square.value != "O"
