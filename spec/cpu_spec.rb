@@ -23,6 +23,18 @@ describe "Cpu" do
     end
   end
 
+  describe '#find_remaining_squares' do
+    before do
+      @user.place_mark(1)
+      @cpu.place_mark(5)
+      @user.place_mark(4)
+      @cpu.place_mark(7)
+    end
+    it "should return the an array of squares that are unoccupied" do
+      expect(@cpu.find_remaining_squares).to eq([2,3,6,8,9])
+    end
+  end
+
   describe '#is_immediate_threat' do
     describe "when there are 2 X's and no O's on a winning combo" do
       before do

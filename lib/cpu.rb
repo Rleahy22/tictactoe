@@ -36,9 +36,7 @@ class Cpu
 
   def find_remaining_squares
     remaining_squares = @board.find_square_values(@board.squares)
-    remaining_squares.delete("X")
-    remaining_squares.delete("O")
-    remaining_squares
+    remaining_squares -= ["O","X"]
   end
 
   def is_immediate_threat?
